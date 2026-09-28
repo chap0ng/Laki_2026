@@ -1,0 +1,13 @@
+numpy
+scipy
+sounddevice
+soundfile
+# wake word (default backend): keywords as text, no training
+sherpa-onnx
+sentencepiece
+# optional openwakeword backend (--wake oww); openwakeword itself is installed
+# with --no-deps by setup-pi.sh (tflite-runtime has no aarch64/py3.13 wheel)
+onnxruntime
+scikit-learn
+requests
+tqdm

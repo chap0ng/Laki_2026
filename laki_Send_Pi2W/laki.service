@@ -1,0 +1,19 @@
+# autostart Laki on boot — installed by setup-pi.sh, which fills in laki_test:
+#   sudo cp ~/laki/laki.service /etc/systemd/system/ && sudo systemctl enable --now laki
+[Unit]
+Description=Laki the whistling bird
+After=sound.target network-online.target
+Wants=network-online.target
+
+[Service]
+User=laki_test
+WorkingDirectory=/home/laki_test/laki
+ExecStart=/home/laki_test/laki/.venv/bin/python -u /home/laki_test/laki/laki.py
+ExecStartPre=/bin/sleep 5
+KillSignal=SIGTERM
+TimeoutStopSec=15
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+# peers.txt on the SENDER (laki-01) - the 3 receivers of the final flock.
+# One ssh host per line. Read ONCE at start: restart laki after editing.
+#
+# ALWAYS mDNS names (.local), NEVER IPs:
+#   - an IP follows the board, not the SD card, and changes with the router;
+#   - .local is answered by avahi on the birds themselves, so it keeps working
+#     on any network - a bare router, no DHCP-DNS, no internet at all.
+laki_test_02@laki-02.local
+laki_test_03@laki-03.local
+laki_test_04@laki-04.local

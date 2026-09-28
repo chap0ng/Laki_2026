@@ -1,2 +1,18 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Laki_2026 - Raspberry Pi code. Everything in this repository runs on Linux,
+# so every text file is checked out with LF endings on every platform.
+#
+# This is not cosmetic. Git on Windows defaults to core.autocrlf=true, which
+# hands you CRLF on checkout; a shell script with CRLF fails on the Pi with
+#     /bin/sh^M: bad interpreter: No such file or directory
+# and a CRLF laki.conf exports values with a trailing \r. Do not drop eol=lf.
+* text=auto eol=lf
+
+# Binary assets - never normalised, never diffed
+*.wav    binary
+*.npz    binary
+*.onnx   binary
+*.dtbo   binary
+*.model  binary
+*.tar.gz binary
+*.pdf    binary
+*.afphoto binary

@@ -1,0 +1,23 @@
+# Laki autostart - laki-01 (SENDER). Install with:
+#   sudo cp ~/laki/laki-autostart.service /etc/systemd/system/laki.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now laki
+# Runs laki-send.sh (NOT laki.py) so laki.conf - this bird's voice - is loaded.
+[Unit]
+Description=Laki the whistling bird (sender)
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=laki_test
+WorkingDirectory=/home/laki_test/laki
+# random 15-35 s: lets the ReSpeaker + Wi-Fi settle, and staggers the 5 birds at boot
+ExecStartPre=/bin/sh -c 'sleep $(shuf -i 15-35 -n 1)'
+ExecStart=/home/laki_test/laki/laki-send.sh
+Restart=on-failure
+RestartSec=10
+KillSignal=SIGTERM
+TimeoutStopSec=25
+
+[Install]
+WantedBy=multi-user.target

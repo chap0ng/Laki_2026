@@ -1,0 +1,2 @@
+# other Laki birds, one ssh host per line (must accept this Pi's ssh key)
+# laki@laki-2.local
