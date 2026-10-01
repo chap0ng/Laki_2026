@@ -1,0 +1,27 @@
+# Laki autostart - receiver. Written by install_autostart.sh on 2026-09-15.
+# Runs laki-receiver.sh (NOT laki.py) so laki.conf - this bird's voice - is loaded.
+[Unit]
+Description=Laki the whistling bird (receiver)
+After=sound.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=laki_test_02
+WorkingDirectory=/home/laki_test_02/laki
+# random 10-25 s: lets the ReSpeaker and the Wi-Fi settle, and staggers the
+# birds so they do not all hit the network at the same second after a power cut
+ExecStartPre=/bin/sh -c 'sleep $(shuf -i 10-25 -n 1)'
+ExecStart=/home/laki_test_02/laki/laki-receiver.sh
+Restart=always
+RestartSec=10
+# Restart=always, NOT on-failure: when the ReSpeaker stops clocking I2S, laki.py
+# prints "AUDIO DEVICE STALLED" and exits with code 0. systemd reads that as a
+# clean stop, so on-failure would never restart the bird (learned on laki-04,
+# 30.09.2026). always covers both a crash and that silent clean exit.
+# SIGTERM closes the ReSpeaker stream cleanly - never SIGKILL, it wedges the card
+KillSignal=SIGTERM
+TimeoutStopSec=25
+
+[Install]
+WantedBy=multi-user.target

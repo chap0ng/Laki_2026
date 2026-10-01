@@ -1,0 +1,2 @@
+# peers.txt on a RECEIVER (laki-03) - empty by design.
+# A receiver never pushes anything: only the sender (laki-01) has peers.
